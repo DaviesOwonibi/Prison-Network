@@ -34,7 +34,11 @@ const SignIn = () => {
 	return (
 		<div>
 			<form onSubmit={signIn}>
-				<img src="../../img/lionlogo.png" width={"100px"} alt="" />
+				<img
+					src="../../img/lionlogo.png"
+					width={"100px"}
+					alt="logo of a lion"
+				/>
 				<h1>Log In</h1>
 				<input
 					type="email"

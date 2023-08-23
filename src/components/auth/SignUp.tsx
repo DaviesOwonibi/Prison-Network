@@ -35,7 +35,11 @@ const SignUp = () => {
 	return (
 		<div className="sign-up-container">
 			<form onSubmit={signUp}>
-				<img src="../../img/lionlogo.png" width={"100px"} alt="" />
+				<img
+					src="../../img/lionlogo.png"
+					width={"100px"}
+					alt="logo of a lion"
+				/>
 				<h1>Create an Account</h1>
 				<input
 					type="email"
