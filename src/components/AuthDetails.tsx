@@ -62,7 +62,7 @@ const AuthDetails = () => {
 	};
 
 	return (
-		<div>
+		<div className="cont">
 			{authUser ? (
 				<ChatApp
 					profilePicture={photoPicURL}
@@ -104,9 +104,9 @@ const AuthDetails = () => {
 							</a>
 						</>
 					)}
-					<ThemeBtn />
 				</div>
 			)}
+			<ThemeBtn />
 		</div>
 	);
 };

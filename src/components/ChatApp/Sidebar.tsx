@@ -1,8 +1,9 @@
 import ChatList from "./ChatList";
 import { createAvatar } from "@dicebear/core";
 import { thumbs } from "@dicebear/collection";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import ThemeBtn from "./ThemeBtn";
+import supabase from "../../supabase";
 
 interface Props {
 	profilePic: string;
@@ -20,6 +21,23 @@ const Sidebar = (props: Props) => {
 	const [query, setQuery] = useState("");
 	const inputRef = useRef<HTMLInputElement>(null); // Specify the type for 'inputRef'
 
+	useEffect(() => {
+		async function fetchContacts() {
+			const { data, error } = await supabase
+				.from("friends") // Replace with your actual Supabase table name
+				.select("name");
+
+			if (error) {
+				console.error("Error fetching contacts:", error.message);
+			} else {
+				const contactNames = data.map((contact) => contact.name);
+				setItems(contactNames);
+			}
+		}
+
+		fetchContacts();
+	}, []);
+
 	const filteredItems = useMemo(() => {
 		return items.filter((item: string) => {
 			return item.toLowerCase().includes(query.toLowerCase());
@@ -27,16 +45,34 @@ const Sidebar = (props: Props) => {
 	}, [items, query]);
 
 	function addContact(e: React.FormEvent<HTMLFormElement>) {
-		// Change parameter type
 		e.preventDefault();
 
-		if (!inputRef.current) return; // Check if inputRef is null
+		if (!inputRef.current) return;
 
 		const value = inputRef.current.value;
 
 		if (value === "") return;
-		setItems((prev) => [...prev, value]);
-		inputRef.current.value = "";
+
+		// Add the contact to Supabase
+		async function insertContact() {
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			const { data, error } = await supabase
+				.from("friends") // Replace with your actual Supabase table name
+				.insert([{ name: value }]);
+
+			if (error) {
+				console.error("Error inserting contact:", error.message);
+			} else {
+				setItems((prev) => [...prev, value]);
+				if (inputRef.current != null) {
+					inputRef.current.value = "";
+				} else {
+					return;
+				}
+			}
+		}
+
+		insertContact();
 	}
 
 	return (
