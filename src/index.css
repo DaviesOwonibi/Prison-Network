@@ -15,6 +15,7 @@
 	--auth-btn: #4a494984;
 	--icon-color: gray;
 	--bottom-border-color: rgba(255, 255, 255, 0.5);
+	--scrollbar-color: #241f1f;
 }
 
 :root .light-mode {
@@ -31,6 +32,7 @@
 	--auth-btn: #c7cfd1;
 	--icon-color: #9b9b9b;
 	--bottom-border-color: rgba(0, 0, 0, 0.5);
+	--scrollbar-color: #dcd7d7;
 }
 
 body {
@@ -55,7 +57,7 @@ a {
 }
 
 ::-webkit-scrollbar-track {
-	background-color: #241f1f;
+	background-color: var(--scrollbar-color);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -447,11 +449,12 @@ inputwebkit-autofill:focus {
 }
 
 .yours .message:before {
+	overflow: hidden;
 	content: "";
 	position: absolute;
 	z-index: 0;
 	bottom: 0;
-	left: -7px;
+	left: -8px;
 	height: 20px;
 	width: 20px;
 	background: linear-gradient(to bottom, #45a640 0%, #0e620a 100%);
@@ -466,6 +469,7 @@ inputwebkit-autofill:focus {
 	left: -10px;
 	width: 10px;
 	height: 20px;
+	background: var(--chat-section);
 	border-bottom-right-radius: 10px;
 }
 

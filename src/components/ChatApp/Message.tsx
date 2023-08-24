@@ -1,5 +1,5 @@
 interface Props {
-	item: string[];
+	items: string[];
 	mine: boolean;
 }
 
@@ -9,13 +9,15 @@ const Message = (props: Props) => {
 		<>
 			{mine ? (
 				<div className="mine messages my-messages">
-					{props.item.map((item) => (
-						<div className="message">{item}</div>
+					{props.items.map((item, index) => (
+						<div key={index} className="message">
+							{item}
+						</div>
 					))}
 				</div>
 			) : (
 				<div className="yours messages">
-					{props.item.map((item, index) => (
+					{props.items.map((item, index) => (
 						<section key={index}>
 							<div className="message">{item}</div>
 						</section>
