@@ -298,8 +298,8 @@ inputwebkit-autofill:focus {
 
 .cont .theme-btn {
 	position: absolute;
-	left: 2%;
-	bottom: 2%;
+	bottom: 0;
+	left: 1%;
 }
 
 .sidebar .bottom-part {

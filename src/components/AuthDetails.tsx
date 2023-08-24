@@ -62,7 +62,7 @@ const AuthDetails = () => {
 	};
 
 	return (
-		<div className="cont">
+		<div>
 			{authUser ? (
 				<ChatApp
 					profilePicture={photoPicURL}
@@ -70,43 +70,45 @@ const AuthDetails = () => {
 					email={userEmail}
 				/>
 			) : (
-				<div className="authentication">
-					{hidden ? (
-						<>
-							{isLoading ? (
-								<RingLoader
-									loading={loading}
-									size={100}
-									color="#f0845a"
-								/>
-							) : (
-								<>
-									<SignIn />
-									<a
-										href="#"
-										className="sign-up"
-										onClick={toggleHidden}
-									>
-										Don't have an account? Sign up.
-									</a>
-								</>
-							)}
-						</>
-					) : (
-						<>
-							<SignUp />
-							<a
-								href="#"
-								className="sign-in"
-								onClick={toggleHidden}
-							>
-								Already have an account? Log in.
-							</a>
-						</>
-					)}
+				<div className="cont">
+					<div className="authentication">
+						{hidden ? (
+							<>
+								{isLoading ? (
+									<RingLoader
+										loading={loading}
+										size={100}
+										color="#f0845a"
+									/>
+								) : (
+									<>
+										<SignIn />
+										<a
+											href="#"
+											className="sign-up"
+											onClick={toggleHidden}
+										>
+											Don't have an account? Sign up.
+										</a>
+									</>
+								)}
+							</>
+						) : (
+							<>
+								<SignUp />
+								<a
+									href="#"
+									className="sign-in"
+									onClick={toggleHidden}
+								>
+									Already have an account? Log in.
+								</a>
+							</>
+						)}
+					</div>
+					<ThemeBtn />
 				</div>
 			)}
-			<ThemeBtn />
 		</div>
 	);
 };
