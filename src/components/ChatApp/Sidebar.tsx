@@ -55,10 +55,10 @@ const Sidebar = (props: Props) => {
 
 		// Add the contact to Supabase
 		async function insertContact() {
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			const { data, error } = await supabase
 				.from("friends") // Replace with your actual Supabase table name
 				.insert([{ name: value }]);
+			console.log(data);
 
 			if (error) {
 				console.error("Error inserting contact:", error.message);

@@ -56,6 +56,7 @@ const SignUp = () => {
 						onChange={(e) => setPassword(e.target.value)}
 					/>
 					<button
+						name="google-btn"
 						type="button"
 						className="toggle-password-button"
 						onClick={toggleShowPassword}

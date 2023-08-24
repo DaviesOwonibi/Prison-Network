@@ -37,11 +37,19 @@ const ThemeBtn = () => {
 	return (
 		<div className="buttons">
 			{!theme ? (
-				<button className="theme-btn" onClick={invertTheme}>
+				<button
+					name="dark-mode-btn"
+					className="theme-btn"
+					onClick={invertTheme}
+				>
 					<i className="fa-solid fa-moon"></i>
 				</button>
 			) : (
-				<button className="theme-btn" onClick={invertTheme}>
+				<button
+					name="light-mode-btn"
+					className="theme-btn"
+					onClick={invertTheme}
+				>
 					<i className="fa-solid fa-sun"></i>
 				</button>
 			)}
