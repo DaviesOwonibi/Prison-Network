@@ -24,7 +24,7 @@ const Sidebar = (props: Props) => {
 	useEffect(() => {
 		async function fetchContacts() {
 			const { data, error } = await supabase
-				.from("friends") // Replace with your actual Supabase table name
+				.from("friends")
 				.select("name");
 
 			if (error) {
@@ -36,7 +36,7 @@ const Sidebar = (props: Props) => {
 		}
 
 		fetchContacts();
-	}, []);
+	}, [items]);
 
 	const filteredItems = useMemo(() => {
 		return items.filter((item: string) => {

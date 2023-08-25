@@ -4,27 +4,18 @@ interface Props {
 }
 
 const Message = (props: Props) => {
-	const mine = props.mine;
+	const messageClassName = props.mine
+		? "mine messages my-messages"
+		: "yours messages";
+
 	return (
-		<>
-			{mine ? (
-				<div className="mine messages my-messages">
-					{props.items.map((item, index) => (
-						<div key={index} className="message">
-							{item}
-						</div>
-					))}
+		<div className={messageClassName}>
+			{props.items.map((item, index) => (
+				<div key={index} className="message">
+					{item}
 				</div>
-			) : (
-				<div className="yours messages">
-					{props.items.map((item, index) => (
-						<section key={index}>
-							<div className="message">{item}</div>
-						</section>
-					))}
-				</div>
-			)}
-		</>
+			))}
+		</div>
 	);
 };
 

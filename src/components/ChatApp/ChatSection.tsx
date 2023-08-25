@@ -2,36 +2,39 @@ import { useEffect, useRef, useState } from "react";
 import Message from "./Message";
 import supabase from "../../supabase";
 
-const ChatSection = () => {
+interface ChatSection {
+	sender: string;
+}
+
+const ChatSection = (props: ChatSection) => {
 	const inputRef = useRef<HTMLInputElement>(null);
 	const [messages, setMessages] = useState<string[]>([]);
-	const [isYours, setIsYours] = useState<boolean[]>([]);
+	const [isMine, setMine] = useState(false);
 
 	useEffect(() => {
 		async function fetchMessage() {
 			const { data, error } = await supabase
 				.from("messages")
-				.select("content, isYours");
+				.select("content, sender, id");
 
 			if (error) {
 				console.error("Error fetching messages:", error.message);
 			} else {
 				const messageDetails = data.map((message) => message.content);
-				const messageBool = data.map((message) => message.isYours);
+				// const messageId = data.map((message) => message.id);
+				const messageSender = data.map((message) => message.sender);
+
+				const isMine = messageSender.some(
+					(sender) => sender === props.sender
+				);
+				setMine(isMine);
 
 				setMessages(messageDetails);
-				if (messageBool.every((value) => typeof value === "boolean")) {
-					setIsYours(messageBool);
-				} else {
-					console.error("Invalid messageBool values:", messageBool);
-				}
 			}
 		}
 
 		fetchMessage();
-	}, [messages, isYours]);
-
-	const isMine = isYours.every((value) => value === true);
+	}, [messages, props.sender]);
 
 	function makeMessage(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
@@ -48,7 +51,7 @@ const ChatSection = () => {
 		async function insertMessage() {
 			const { data, error } = await supabase
 				.from("messages")
-				.insert([{ message: value, isYours: true }]);
+				.insert([{ content: value, sender: props.sender }]);
 			console.log(data);
 
 			if (error) {

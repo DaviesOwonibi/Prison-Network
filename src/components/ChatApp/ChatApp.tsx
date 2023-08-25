@@ -7,7 +7,6 @@ interface Props {
 }
 
 const ChatApp = (props: Props) => {
-	
 	return (
 		<div className="chat-app">
 			<Sidebar
@@ -15,7 +14,7 @@ const ChatApp = (props: Props) => {
 				signOut={props.signOutFunc}
 				email={props.email}
 			/>
-			<ChatSection />
+			<ChatSection sender={props.email} />
 		</div>
 	);
 };

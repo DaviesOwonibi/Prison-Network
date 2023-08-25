@@ -1,8 +1,33 @@
+import { useState } from "react";
+import supabase from "../../supabase";
+
 interface Props {
 	item: string[];
 }
 
 const ChatList = (props: Props) => {
+	const [contacts, setContacts] = useState<string[]>(props.item);
+
+	async function handleDelete(index: number) {
+		setContacts(props.item);
+		console.log(contacts);
+
+		const { data, error } = await supabase
+			.from("friends")
+			.delete()
+			.eq("name", contacts[index]);
+		console.log(data);
+
+		if (error) {
+			console.error("Error deleting contact:", error.message);
+			return;
+		}
+
+		console.log(contacts);
+		const newContacts = contacts.filter((_, i) => i !== index);
+		setContacts(newContacts);
+	}
+
 	return (
 		<div className="chat-list">
 			{props.item.map((item, index) => (
@@ -19,6 +44,15 @@ const ChatList = (props: Props) => {
 						<div>
 							<h2>Lorem Ipsum sdfmdndfjdfjdfjjdfjdfjdfggg</h2>
 						</div>
+						<button
+							className="deleteBtn"
+							onClick={() => handleDelete(index)}
+						>
+							<i
+								className="fa-solid fa-xmark"
+								style={{ color: "#ffffff" }}
+							></i>
+						</button>
 					</div>
 				</section>
 			))}
